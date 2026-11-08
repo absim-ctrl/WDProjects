@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Tickets | IPL Ticket Booking</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">IPL TICKETS</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#teams">Teams</a></li>
+      <li><a href="index.html#schedule">Schedule</a></li>
+      <li><a href="booking.html" class="active">Book Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- BOOKING FORM -->
+  <section class="booking-section">
+    <h2>Ticket Booking Form</h2>
+
+    <form id="bookingForm" action="#" method="post">
+
+      <!-- PERSONAL DETAILS -->
+      <fieldset>
+        <legend>Personal Details</legend>
+
+        <label for="name">Full Name *</label>
+        <input type="text" id="name" name="name"
+               placeholder="Enter your full name"
+               required minlength="3" maxlength="50"
+               pattern="[A-Za-z ]+"
+               title="Name should contain only letters and spaces (min 3 characters)">
+
+        <label for="email">Email *</label>
+        <input type="email" id="email" name="email"
+               placeholder="example@gmail.com"
+               required>
+
+        <label for="phone">Phone Number *</label>
+        <input type="tel" id="phone" name="phone"
+               placeholder="10-digit mobile number"
+               required minlength="10" maxlength="10"
+               pattern="[6-9][0-9]{9}"
+               title="Enter a valid 10-digit Indian mobile number starting with 6-9">
+      </fieldset>
+
+      <!-- MATCH DETAILS -->
+      <fieldset>
+        <legend>Match Details</legend>
+
+        <label for="match">Select Match *</label>
+        <select id="match" name="match" required>
+          <option value="">-- Choose a match --</option>
+          <option value="rcb-csk">RCB vs CSK - Bengaluru (05 Apr)</option>
+          <option value="mi-kkr">MI vs KKR - Mumbai (08 Apr)</option>
+          <option value="dc-srh">DC vs SRH - Delhi (10 Apr)</option>
+          <option value="gt-rr">GT vs RR - Ahmedabad (12 Apr)</option>
+        </select>
+
+        <label for="stand">Stand Category *</label>
+        <select id="stand" name="stand" required>
+          <option value="">-- Choose a stand --</option>
+          <option value="general">General Stand - ₹1,200</option>
+          <option value="premium">Premium Stand - ₹2,500</option>
+          <option value="vip">VIP Box - ₹5,000</option>
+        </select>
+
+        <label for="tickets">Number of Tickets (1-10) *</label>
+        <input type="number" id="tickets" name="tickets"
+               placeholder="1"
+               required min="1" max="10">
+      </fieldset>
+
+      <!-- PREFERENCES -->
+      <fieldset>
+        <legend>Booking Preferences</legend>
+
+        <p class="group-label">Ticket Delivery *</p>
+        <div class="option-group">
+          <label class="option">
+            <input type="radio" name="delivery" value="e-ticket" required> E-Ticket (Email)
+          </label>
+          <label class="option">
+            <input type="radio" name="delivery" value="pickup"> Stadium Pickup
+          </label>
+        </div>
+
+        <p class="group-label">Add-ons (optional)</p>
+        <div class="option-group">
+          <label class="option">
+            <input type="checkbox" name="addons" value="parking"> Parking Pass
+          </label>
+          <label class="option">
+            <input type="checkbox" name="addons" value="merch"> Team Merchandise
+          </label>
+          <label class="option">
+            <input type="checkbox" name="addons" value="sms"> SMS Updates
+          </label>
+        </div>
+
+        <label class="option terms">
+          <input type="checkbox" name="terms" required>
+          I agree to the terms and conditions *
+        </label>
+      </fieldset>
+
+      <!-- BUTTONS -->
+      <div class="form-buttons">
+        <button type="submit">Submit</button>
+        <button type="reset" class="btn-reset">Reset</button>
+      </div>
+
+      <p id="successMsg" class="success-msg" hidden>
+        ✅ Booking submitted successfully! Your tickets will be sent shortly.
+      </p>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 IPL Ticket Booking. All rights reserved.</p>
+    <p><a href="index.html">Home</a> | <a href="index.html#schedule">Schedule</a> | <a href="booking.html">Book</a></p>
+  </footer>
+
+  <!-- Runs only after browser's built-in HTML5 validation passes -->
+  <script>
+    const form = document.getElementById("bookingForm");
+    const msg = document.getElementById("successMsg");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      msg.hidden = false;
+      msg.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+
+    form.addEventListener("reset", function () {
+      msg.hidden = true;
+    });
+  </script>
+
+</body>
+</html>

@@ -127,21 +127,7 @@
     <p><a href="index.html">Home</a> | <a href="index.html#schedule">Schedule</a> | <a href="booking.html">Book</a></p>
   </footer>
 
-  <!-- Runs only after browser's built-in HTML5 validation passes -->
-  <script>
-    const form = document.getElementById("bookingForm");
-    const msg = document.getElementById("successMsg");
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      msg.hidden = false;
-      msg.scrollIntoView({ behavior: "smooth", block: "center" });
-    });
-
-    form.addEventListener("reset", function () {
-      msg.hidden = true;
-    });
-  </script>
+  <script src="app.js"></script>
 
 </body>
 </html>

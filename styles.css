@@ -352,6 +352,161 @@ footer p {
   opacity: 0.85;
 }
 
+/* ---------- 9b. BOOKING PAGE EXTRAS (Activity 3) ---------- */
+.booking-section {
+  min-height: 80vh;
+}
+
+.booking-section form {
+  max-width: 680px;
+}
+
+fieldset {
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 20px 20px;
+  margin-bottom: 22px;
+}
+
+legend {
+  padding: 0 10px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.group-label {
+  font-weight: 600;
+  color: var(--primary);
+  margin: 14px 0 6px;
+}
+
+.option-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+}
+
+form label.option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: var(--text);
+  margin: 4px 0;
+  cursor: pointer;
+}
+
+form input[type="radio"],
+form input[type="checkbox"] {
+  width: auto;
+  accent-color: var(--accent-dark);
+  transform: scale(1.2);
+}
+
+.terms {
+  margin-top: 18px !important;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 14px;
+}
+
+.form-buttons button {
+  flex: 1;
+  margin-top: 6px;
+}
+
+.btn-reset {
+  background: transparent;
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-reset:hover {
+  background: var(--primary);
+  color: var(--text-light);
+  border-color: var(--primary);
+}
+
+/* Built-in validation feedback */
+form input:invalid:not(:placeholder-shown),
+form select:invalid:not(:focus) {
+  border-color: #d93025;
+}
+
+form input:valid:not(:placeholder-shown) {
+  border-color: #2e9e4f;
+}
+
+.success-msg {
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 8px;
+  background: #e6f6ec;
+  color: #1d6b38;
+  border: 1px solid #2e9e4f;
+  font-weight: 600;
+  text-align: center;
+}
+
+.success-msg[hidden] {
+  display: none;
+}
+
+/* ---------- 9c. TOAST + BOOK BUTTON (Activity 5) ---------- */
+section {
+  scroll-margin-top: var(--nav-height); /* keeps headings below the fixed navbar */
+}
+
+.btn-sm {
+  padding: 6px 20px;
+  font-size: 0.9rem;
+}
+
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 2000;
+}
+
+.toast {
+  min-width: 260px;
+  max-width: 340px;
+  padding: 14px 18px;
+  border-radius: 8px;
+  border-left: 6px solid var(--accent);
+  background: var(--primary);
+  color: var(--text-light);
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toast-success { border-left-color: #2e9e4f; }
+.toast-error   { border-left-color: #d93025; }
+.toast-info    { border-left-color: var(--accent); }
+
+@media (max-width: 768px) {
+  #toast-container {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+  }
+  .toast { max-width: none; }
+}
+
 /* ---------- 10. RESPONSIVE ---------- */
 @media (max-width: 768px) {
   nav,

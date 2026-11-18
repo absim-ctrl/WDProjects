@@ -79,29 +79,59 @@
     </div>
   </section>
 
-  <!-- BOOKING FORM -->
+  <!-- BOOKING FORM + LIVE SUMMARY -->
   <section id="booking">
     <h2>Book Your Ticket</h2>
-    <form>
-      <label for="name">Full Name</label>
-      <input type="text" id="name" placeholder="Enter your name" required>
+    <div class="booking-layout">
 
-      <label for="email">Email</label>
-      <input type="email" id="email" placeholder="Enter your email" required>
+      <form id="homeBookingForm">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="Enter your name" required minlength="3">
 
-      <label for="match">Select Match</label>
-      <select id="match">
-        <option value="rcb-csk">RCB vs CSK</option>
-        <option value="mi-kkr">MI vs KKR</option>
-        <option value="dc-srh">DC vs SRH</option>
-        <option value="gt-rr">GT vs RR</option>
-      </select>
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
 
-      <label for="tickets">Number of Tickets</label>
-      <input type="number" id="tickets" min="1" max="10" value="1">
+        <label for="match">Select Match</label>
+        <select id="match" required>
+          <option value="">-- Choose a match --</option>
+          <option value="rcb-csk" data-name="RCB vs CSK" data-date="05 Apr" data-venue="Bengaluru">RCB vs CSK - Bengaluru (05 Apr)</option>
+          <option value="mi-kkr" data-name="MI vs KKR" data-date="08 Apr" data-venue="Mumbai">MI vs KKR - Mumbai (08 Apr)</option>
+          <option value="dc-srh" data-name="DC vs SRH" data-date="10 Apr" data-venue="Delhi">DC vs SRH - Delhi (10 Apr)</option>
+          <option value="gt-rr" data-name="GT vs RR" data-date="12 Apr" data-venue="Ahmedabad">GT vs RR - Ahmedabad (12 Apr)</option>
+        </select>
 
-      <button type="submit">Confirm Booking</button>
-    </form>
+        <label for="stand">Stand Category</label>
+        <select id="stand" required>
+          <option value="">-- Choose a stand --</option>
+          <option value="general" data-price="1200" data-name="General Stand">General Stand - &#8377;1,200</option>
+          <option value="premium" data-price="2500" data-name="Premium Stand">Premium Stand - &#8377;2,500</option>
+          <option value="vip" data-price="5000" data-name="VIP Box">VIP Box - &#8377;5,000</option>
+        </select>
+
+        <label for="tickets">Number of Tickets (1-10)</label>
+        <input type="number" id="tickets" min="1" max="10" value="1" required>
+
+        <button type="submit">Confirm Booking</button>
+      </form>
+
+      <!-- BOOKING SUMMARY CARD (updated live by app.js) -->
+      <aside class="summary-card" id="summaryCard" aria-live="polite">
+        <h3>Booking Summary</h3>
+        <dl>
+          <div class="summary-row"><dt>Match</dt><dd id="sumMatch">&mdash;</dd></div>
+          <div class="summary-row"><dt>Date &amp; Venue</dt><dd id="sumVenue">&mdash;</dd></div>
+          <div class="summary-row"><dt>Stand</dt><dd id="sumStand">&mdash;</dd></div>
+          <div class="summary-row"><dt>Price / Ticket</dt><dd id="sumPrice">&mdash;</dd></div>
+          <div class="summary-row"><dt>Tickets</dt><dd id="sumQty">&mdash;</dd></div>
+        </dl>
+        <div class="summary-total">
+          <span>Total</span>
+          <strong id="sumTotal">&#8377;0</strong>
+        </div>
+        <p class="summary-note" id="sumNote">Select a match and stand to see your total.</p>
+      </aside>
+
+    </div>
   </section>
 
   <!-- FOOTER -->

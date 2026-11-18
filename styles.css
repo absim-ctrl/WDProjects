@@ -507,6 +507,94 @@ section {
   .toast { max-width: none; }
 }
 
+/* ---------- 9d. BOOKING SUMMARY CARD (Activity 7) ---------- */
+.booking-layout {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 28px;
+  align-items: start;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.booking-layout form {
+  max-width: none;
+  margin: 0;
+}
+
+.summary-card {
+  position: sticky;
+  top: calc(var(--nav-height) + 20px);
+  background: var(--primary);
+  color: var(--text-light);
+  border-radius: var(--radius);
+  padding: 28px;
+  border-top: 5px solid var(--accent);
+  box-shadow: var(--shadow-lg);
+}
+
+.summary-card h3 {
+  color: var(--accent);
+  margin-bottom: 16px;
+  font-size: 1.3rem;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.25);
+}
+
+.summary-row dt {
+  opacity: 0.75;
+}
+
+.summary-row dd {
+  font-weight: 600;
+  text-align: right;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 18px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  background: rgba(245, 179, 1, 0.15);
+}
+
+.summary-total strong {
+  color: var(--accent);
+  font-size: 1.7rem;
+}
+
+.summary-note {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.summary-card.updated {
+  animation: pulse 0.5s ease;
+}
+
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(245, 179, 1, 0.6); }
+  100% { box-shadow: 0 0 0 18px rgba(245, 179, 1, 0); }
+}
+
+@media (max-width: 860px) {
+  .booking-layout {
+    grid-template-columns: 1fr;
+  }
+  .summary-card {
+    position: static;
+  }
+}
+
 /* ---------- 10. RESPONSIVE ---------- */
 @media (max-width: 768px) {
   nav,

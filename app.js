@@ -1,3 +1,8 @@
+/* ==========================================================
+   IPL Ticket Booking - app.js
+   Activity 5: DOM manipulation, events, toast, smooth scroll
+   ========================================================== */
+
    "use strict";
 
    /* ---------- 1. REUSABLE TOAST NOTIFICATION ----------
@@ -52,6 +57,7 @@
      const matchSelect = document.getElementById("match");
      if (matchSelect && matchValue) {
        matchSelect.value = matchValue;
+       updateSummary(false); // refresh the summary card without a second toast
      }
    
      // Move focus to the first field after the scroll finishes
@@ -78,6 +84,7 @@
        e.preventDefault(); // runs only after HTML5 validation passes
        showToast("Booking confirmed! Check your email for the ticket.", "success", 4000);
        homeForm.reset();
+       updateSummary(false);
      });
    }
    
@@ -108,3 +115,87 @@
        }
      });
    });
+   
+   /* ---------- 5. LIVE BOOKING SUMMARY (Activity 7) ----------
+      Reads the Match, Stand and Quantity controls, calculates the total
+      and updates the Booking Summary Card without reloading the page.
+   */
+   const matchSelect   = document.getElementById("match");
+   const standSelect   = document.getElementById("stand");
+   const ticketsInput  = document.getElementById("tickets");
+   
+   // Format a number as Indian rupees, e.g. 5000 -> "₹5,000"
+   function formatINR(amount) {
+     return "\u20B9" + amount.toLocaleString("en-IN");
+   }
+   
+   function updateSummary(announce = true) {
+     // Summary card only exists on the home page
+     if (!matchSelect || !standSelect || !ticketsInput) return;
+     if (!document.getElementById("summaryCard")) return;
+   
+     // 1. READ the user's choices
+     const matchOpt = matchSelect.options[matchSelect.selectedIndex];
+     const standOpt = standSelect.options[standSelect.selectedIndex];
+     const qty      = parseInt(ticketsInput.value, 10);
+   
+     const hasMatch = matchSelect.value !== "";
+     const hasStand = standSelect.value !== "";
+     const validQty = Number.isInteger(qty) && qty >= 1 && qty <= 10;
+   
+     // 2. CALCULATE the total (price per ticket x quantity)
+     const price = hasStand ? Number(standOpt.dataset.price) : 0;
+     const total = hasStand && validQty ? price * qty : 0;
+   
+     // 3. DISPLAY it in the Booking Summary Card
+     document.getElementById("sumMatch").textContent =
+       hasMatch ? matchOpt.dataset.name : "\u2014";
+     document.getElementById("sumVenue").textContent =
+       hasMatch ? `${matchOpt.dataset.date}, ${matchOpt.dataset.venue}` : "\u2014";
+     document.getElementById("sumStand").textContent =
+       hasStand ? standOpt.dataset.name : "\u2014";
+     document.getElementById("sumPrice").textContent =
+       hasStand ? formatINR(price) : "\u2014";
+     document.getElementById("sumQty").textContent =
+       validQty ? qty : "\u2014";
+     document.getElementById("sumTotal").textContent = formatINR(total);
+   
+     const note = document.getElementById("sumNote");
+     if (!validQty) {
+       note.textContent = "Tickets must be between 1 and 10.";
+     } else if (!hasMatch || !hasStand) {
+       note.textContent = "Select a match and stand to see your total.";
+     } else {
+       note.textContent = `${qty} x ${formatINR(price)} = ${formatINR(total)}`;
+     }
+   
+     // Small highlight animation on the card
+     const card = document.getElementById("summaryCard");
+     card.classList.remove("updated");
+     void card.offsetWidth; // restart the animation
+     card.classList.add("updated");
+   
+     // 4. CONFIRM with a toast
+     if (!announce) return;
+     if (!validQty) {
+       showToast("Please enter 1 to 10 tickets.", "error");
+     } else if (hasMatch && hasStand) {
+       showToast(`Summary updated: ${formatINR(total)} total`, "success");
+     } else {
+       showToast("Summary updated", "info", 1500);
+     }
+   }
+   
+   // change fires when a dropdown choice changes or a number input is committed;
+   // input makes the quantity react while typing / using the spinner arrows
+   [matchSelect, standSelect, ticketsInput].forEach((el) => {
+     if (el) el.addEventListener("change", () => updateSummary(true));
+   });
+   if (ticketsInput) {
+     ticketsInput.addEventListener("input", () => updateSummary(false));
+   }
+   
+   // Reset button / form reset clears the summary too
+   if (homeForm) {
+     homeForm.addEventListener("reset", () => setTimeout(() => updateSummary(false), 0));
+   }

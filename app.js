@@ -199,3 +199,90 @@
    if (homeForm) {
      homeForm.addEventListener("reset", () => setTimeout(() => updateSummary(false), 0));
    }
+   
+   /* ==========================================================
+      6. RESPONSIVE LAYOUT INTERACTIONS (Activity 8)
+      ========================================================== */
+   
+   /* ---------- 6a. Hamburger menu: toggle the "open" class ---------- */
+   const navToggle = document.getElementById("navToggle");
+   const navLinks  = document.getElementById("navLinks");
+   
+   function setMenu(open) {
+     navLinks.classList.toggle("open", open);
+     navToggle.setAttribute("aria-expanded", String(open));
+   }
+   
+   if (navToggle && navLinks) {
+     navToggle.addEventListener("click", () => {
+       setMenu(!navLinks.classList.contains("open"));
+     });
+   
+     // Close the menu after choosing a link
+     navLinks.querySelectorAll("a").forEach((link) => {
+       link.addEventListener("click", () => setMenu(false));
+     });
+   
+     // Close with the Escape key
+     document.addEventListener("keydown", (e) => {
+       if (e.key === "Escape") setMenu(false);
+     });
+   
+     // Reset when the screen becomes wide again
+     window.addEventListener("resize", () => {
+       if (window.innerWidth > 768) setMenu(false);
+     });
+   }
+   
+   /* ---------- 6b. Filter match cards by team ---------- */
+   const teamFilter = document.getElementById("teamFilter");
+   const matchGrid  = document.getElementById("matchGrid");
+   
+   function filterMatches(announce = true) {
+     const team  = teamFilter.value;                     // e.g. "csk" or "all"
+     const cards = matchGrid.querySelectorAll(".match-card");
+     let visible = 0;
+   
+     cards.forEach((card) => {
+       // data-teams="rcb csk" -> ["rcb", "csk"]
+       const teams = card.dataset.teams.split(" ");
+       const show  = team === "all" || teams.includes(team);
+       card.hidden = !show;
+       if (show) visible++;
+     });
+   
+     document.getElementById("matchCount").textContent =
+       `Showing ${visible} of ${cards.length} matches`;
+     document.getElementById("noMatches").hidden = visible !== 0;
+   
+     if (announce) {
+       showToast(
+         team === "all" ? "Showing all matches" : `${visible} match(es) found`,
+         visible ? "info" : "error",
+         1800
+       );
+     }
+   }
+   
+   if (teamFilter && matchGrid) {
+     teamFilter.addEventListener("change", () => filterMatches(true));
+   }
+   
+   /* ---------- 6c. Toggle between grid and list view ---------- */
+   const gridBtn = document.getElementById("gridViewBtn");
+   const listBtn = document.getElementById("listViewBtn");
+   
+   function setView(view) {
+     const isList = view === "list";
+     matchGrid.classList.toggle("list-view", isList);
+   
+     gridBtn.classList.toggle("active", !isList);
+     listBtn.classList.toggle("active", isList);
+     gridBtn.setAttribute("aria-pressed", String(!isList));
+     listBtn.setAttribute("aria-pressed", String(isList));
+   }
+   
+   if (gridBtn && listBtn && matchGrid) {
+     gridBtn.addEventListener("click", () => setView("grid"));
+     listBtn.addEventListener("click", () => setView("list"));
+   }

@@ -621,3 +621,294 @@ section {
     padding: 22px;
   }
 }
+
+
+/* ==========================================================
+   11. RESPONSIVE LAYOUT (Activity 8)
+   ========================================================== */
+
+/* ---------- Nav: hamburger button (hidden on desktop) ---------- */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  background: transparent;
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.nav-toggle:hover {
+  background: rgba(245, 179, 1, 0.15);
+  border-color: var(--accent);
+  transform: none;
+  box-shadow: none;
+}
+
+.nav-toggle span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hamburger turns into an X when the menu is open */
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* ---------- Toolbar: team filter + grid/list toggle (Flexbox) ---------- */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+  max-width: 1100px;
+  margin: 0 auto 12px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 260px;
+}
+
+.filter-group label {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.filter-group select {
+  padding: 11px 14px;
+  font-family: inherit;
+  font-size: 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.filter-group select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(245, 179, 1, 0.25);
+}
+
+.view-toggle {
+  display: flex;
+  border: 2px solid var(--primary);
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.view-btn {
+  padding: 9px 22px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--primary);
+  font-size: 0.95rem;
+}
+
+.view-btn:hover {
+  background: rgba(11, 31, 77, 0.08);
+  transform: none;
+  box-shadow: none;
+}
+
+.view-btn.active,
+.view-btn.active:hover {
+  background: var(--primary);
+  color: var(--accent);
+}
+
+.match-count {
+  max-width: 1100px;
+  margin: 0 auto 18px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* ---------- Match cards: CSS Grid ---------- */
+.match-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.match-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.match-date {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 3px 12px;
+  border-radius: 50px;
+  background: rgba(245, 179, 1, 0.2);
+  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.match-card .price {
+  margin-bottom: 10px;
+}
+
+.match-card[hidden],
+.no-matches[hidden] {
+  display: none;
+}
+
+.no-matches {
+  max-width: 1100px;
+  margin: 20px auto 0;
+  padding: 24px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  color: var(--muted);
+}
+
+/* ---------- List view (toggled with JS class) ---------- */
+.match-grid.list-view {
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.match-grid.list-view .match-card {
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 24px;
+}
+
+.match-grid.list-view .match-info {
+  flex: 1;
+}
+
+.match-grid.list-view .match-card p {
+  margin-bottom: 0;
+}
+
+.match-grid.list-view .match-action {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.match-grid.list-view .match-card .price {
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+/* ---------- Guidelines: 3-column CSS Grid ---------- */
+.guidelines-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.guide-card {
+  text-align: left;
+  border-top: 4px solid var(--accent);
+}
+
+.guide-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.guide-card p {
+  margin-bottom: 0;
+}
+
+/* ---------- TABLET (up to 900px): everything stacks to ONE column ---------- */
+@media (max-width: 900px) {
+  .match-grid,
+  .guidelines-grid,
+  .booking-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .view-toggle {
+    align-self: flex-start;
+  }
+}
+
+/* ---------- PHONE (up to 768px): hamburger menu ---------- */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-links,
+  .navbar .nav-links {
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+    background: var(--primary);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+
+  /* JS adds the .open class to show the menu */
+  .nav-links.open,
+  .navbar .nav-links.open {
+    max-height: 320px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 14px rgba(0, 0, 0, 0.35);
+  }
+
+  .navbar .nav-links li a {
+    display: block;
+    padding: 16px 8%;
+    font-size: 1rem;
+    border-radius: 0;
+  }
+
+  .navbar .nav-links li a:hover,
+  .navbar .nav-links li a.active {
+    transform: none;
+  }
+
+  .match-grid.list-view .match-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .match-grid.list-view .match-action {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .filter-group {
+    min-width: 0;
+  }
+}

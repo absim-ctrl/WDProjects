@@ -8,13 +8,19 @@
 </head>
 <body>
 
-  <!-- NAVBAR -->
+  <!-- NAVBAR (Flexbox: logo left, links right; hamburger on mobile) -->
   <nav class="navbar">
     <div class="logo">IPL TICKETS</div>
-    <ul>
+
+    <button type="button" class="nav-toggle" id="navToggle"
+            aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul id="navLinks" class="nav-links">
       <li><a href="#home" class="active">Home</a></li>
-      <li><a href="#teams">Teams</a></li>
-      <li><a href="#schedule">Schedule</a></li>
+      <li><a href="#schedule">Matches</a></li>
+      <li><a href="#guidelines">Guidelines</a></li>
       <li><a href="booking.html">Book Now</a></li>
     </ul>
   </nav>
@@ -29,53 +35,132 @@
     </div>
   </header>
 
-  <!-- TEAM CARDS -->
-  <section id="teams">
-    <h2>Featured Matches</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>RCB vs CSK</h3>
-        <p>M. Chinnaswamy Stadium, Bengaluru</p>
-        <span class="price">From ₹1,500</span>
-        <a href="booking.html" class="btn">Book Now</a>
-      </div>
-      <div class="card">
-        <h3>MI vs KKR</h3>
-        <p>Wankhede Stadium, Mumbai</p>
-        <span class="price">From ₹2,000</span>
-        <a href="booking.html" class="btn">Book Now</a>
-      </div>
-      <div class="card">
-        <h3>DC vs SRH</h3>
-        <p>Arun Jaitley Stadium, Delhi</p>
-        <span class="price">From ₹1,200</span>
-        <a href="booking.html" class="btn">Book Now</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- MATCH SCHEDULE TABLE -->
+  <!-- MATCH SCHEDULE AS CARDS (CSS Grid) + FILTER + VIEW TOGGLE -->
   <section id="schedule">
     <h2>Match Schedule</h2>
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>Match</th>
-            <th>Date</th>
-            <th>Venue</th>
-            <th>Time</th>
-            <th>Price</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>RCB vs CSK</td><td>05 Apr</td><td>Bengaluru</td><td>7:30 PM</td><td>₹1,500</td><td><button type="button" class="book-btn btn-sm" data-match="rcb-csk" data-name="RCB vs CSK">Book</button></td></tr>
-          <tr><td>MI vs KKR</td><td>08 Apr</td><td>Mumbai</td><td>7:30 PM</td><td>₹2,000</td><td><button type="button" class="book-btn btn-sm" data-match="mi-kkr" data-name="MI vs KKR">Book</button></td></tr>
-          <tr><td>DC vs SRH</td><td>10 Apr</td><td>Delhi</td><td>3:30 PM</td><td>₹1,200</td><td><button type="button" class="book-btn btn-sm" data-match="dc-srh" data-name="DC vs SRH">Book</button></td></tr>
-          <tr><td>GT vs RR</td><td>12 Apr</td><td>Ahmedabad</td><td>7:30 PM</td><td>₹1,800</td><td><button type="button" class="book-btn btn-sm" data-match="gt-rr" data-name="GT vs RR">Book</button></td></tr>
-        </tbody>
-      </table>
+
+    <div class="toolbar">
+      <div class="filter-group">
+        <label for="teamFilter">Filter by team</label>
+        <select id="teamFilter">
+          <option value="all">All Teams</option>
+          <option value="rcb">RCB - Royal Challengers Bengaluru</option>
+          <option value="csk">CSK - Chennai Super Kings</option>
+          <option value="mi">MI - Mumbai Indians</option>
+          <option value="kkr">KKR - Kolkata Knight Riders</option>
+          <option value="dc">DC - Delhi Capitals</option>
+          <option value="srh">SRH - Sunrisers Hyderabad</option>
+          <option value="gt">GT - Gujarat Titans</option>
+          <option value="rr">RR - Rajasthan Royals</option>
+        </select>
+      </div>
+
+      <div class="view-toggle" role="group" aria-label="Switch layout">
+        <button type="button" class="view-btn active" id="gridViewBtn" aria-pressed="true">&#9638; Grid</button>
+        <button type="button" class="view-btn" id="listViewBtn" aria-pressed="false">&#9776; List</button>
+      </div>
+    </div>
+
+    <p class="match-count" id="matchCount" aria-live="polite">Showing 6 of 6 matches</p>
+
+    <div class="match-grid" id="matchGrid">
+
+      <article class="card match-card" data-teams="rcb csk">
+        <div class="match-info">
+          <span class="match-date">05 Apr &middot; 7:30 PM</span>
+          <h3>RCB vs CSK</h3>
+          <p>M. Chinnaswamy Stadium, Bengaluru</p>
+        </div>
+        <div class="match-action">
+          <span class="price">From &#8377;1,200</span>
+          <button type="button" class="book-btn btn-sm" data-match="rcb-csk" data-name="RCB vs CSK">Book</button>
+        </div>
+      </article>
+
+      <article class="card match-card" data-teams="mi kkr">
+        <div class="match-info">
+          <span class="match-date">08 Apr &middot; 7:30 PM</span>
+          <h3>MI vs KKR</h3>
+          <p>Wankhede Stadium, Mumbai</p>
+        </div>
+        <div class="match-action">
+          <span class="price">From &#8377;1,200</span>
+          <button type="button" class="book-btn btn-sm" data-match="mi-kkr" data-name="MI vs KKR">Book</button>
+        </div>
+      </article>
+
+      <article class="card match-card" data-teams="dc srh">
+        <div class="match-info">
+          <span class="match-date">10 Apr &middot; 3:30 PM</span>
+          <h3>DC vs SRH</h3>
+          <p>Arun Jaitley Stadium, Delhi</p>
+        </div>
+        <div class="match-action">
+          <span class="price">From &#8377;1,200</span>
+          <button type="button" class="book-btn btn-sm" data-match="dc-srh" data-name="DC vs SRH">Book</button>
+        </div>
+      </article>
+
+      <article class="card match-card" data-teams="gt rr">
+        <div class="match-info">
+          <span class="match-date">12 Apr &middot; 7:30 PM</span>
+          <h3>GT vs RR</h3>
+          <p>Narendra Modi Stadium, Ahmedabad</p>
+        </div>
+        <div class="match-action">
+          <span class="price">From &#8377;1,200</span>
+          <button type="button" class="book-btn btn-sm" data-match="gt-rr" data-name="GT vs RR">Book</button>
+        </div>
+      </article>
+
+      <article class="card match-card" data-teams="csk mi">
+        <div class="match-info">
+          <span class="match-date">15 Apr &middot; 7:30 PM</span>
+          <h3>CSK vs MI</h3>
+          <p>MA Chidambaram Stadium, Chennai</p>
+        </div>
+        <div class="match-action">
+          <span class="price">From &#8377;1,200</span>
+          <button type="button" class="book-btn btn-sm" data-match="csk-mi" data-name="CSK vs MI">Book</button>
+        </div>
+      </article>
+
+      <article class="card match-card" data-teams="kkr rcb">
+        <div class="match-info">
+          <span class="match-date">18 Apr &middot; 3:30 PM</span>
+          <h3>KKR vs RCB</h3>
+          <p>Eden Gardens, Kolkata</p>
+        </div>
+        <div class="match-action">
+          <span class="price">From &#8377;1,200</span>
+          <button type="button" class="book-btn btn-sm" data-match="kkr-rcb" data-name="KKR vs RCB">Book</button>
+        </div>
+      </article>
+
+    </div>
+
+    <p class="no-matches" id="noMatches" hidden>No matches found for this team.</p>
+  </section>
+
+  <!-- GUIDELINES (3-column CSS Grid) -->
+  <section id="guidelines">
+    <h2>Stadium Guidelines</h2>
+    <div class="guidelines-grid">
+      <div class="card guide-card">
+        <div class="guide-icon">&#127903;</div>
+        <h3>Before You Arrive</h3>
+        <p>Carry your e-ticket and a valid photo ID. Gates usually open two hours before the first ball.</p>
+      </div>
+      <div class="card guide-card">
+        <div class="guide-icon">&#127951;</div>
+        <h3>At the Stadium</h3>
+        <p>Keep to your assigned stand and seat. Outside food, drinks and large bags are not allowed inside.</p>
+      </div>
+      <div class="card guide-card">
+        <div class="guide-icon">&#128274;</div>
+        <h3>Ticket Rules</h3>
+        <p>Tickets are non-transferable and each QR code works once. Book up to 10 tickets per booking.</p>
+      </div>
     </div>
   </section>
 
@@ -98,6 +183,8 @@
           <option value="mi-kkr" data-name="MI vs KKR" data-date="08 Apr" data-venue="Mumbai">MI vs KKR - Mumbai (08 Apr)</option>
           <option value="dc-srh" data-name="DC vs SRH" data-date="10 Apr" data-venue="Delhi">DC vs SRH - Delhi (10 Apr)</option>
           <option value="gt-rr" data-name="GT vs RR" data-date="12 Apr" data-venue="Ahmedabad">GT vs RR - Ahmedabad (12 Apr)</option>
+          <option value="csk-mi" data-name="CSK vs MI" data-date="15 Apr" data-venue="Chennai">CSK vs MI - Chennai (15 Apr)</option>
+          <option value="kkr-rcb" data-name="KKR vs RCB" data-date="18 Apr" data-venue="Kolkata">KKR vs RCB - Kolkata (18 Apr)</option>
         </select>
 
         <label for="stand">Stand Category</label>
@@ -137,7 +224,7 @@
   <!-- FOOTER -->
   <footer>
     <p>&copy; 2026 IPL Ticket Booking. All rights reserved.</p>
-    <p><a href="#home">Home</a> | <a href="#schedule">Schedule</a> | <a href="#booking">Book</a></p>
+    <p><a href="#home">Home</a> | <a href="#schedule">Matches</a> | <a href="#guidelines">Guidelines</a> | <a href="#booking">Book</a></p>
   </footer>
 
   <script src="app.js"></script>

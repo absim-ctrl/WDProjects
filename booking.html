@@ -11,10 +11,16 @@
   <!-- NAVBAR -->
   <nav class="navbar">
     <div class="logo">IPL TICKETS</div>
-    <ul>
+
+    <button type="button" class="nav-toggle" id="navToggle"
+            aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul id="navLinks" class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="index.html#teams">Teams</a></li>
-      <li><a href="index.html#schedule">Schedule</a></li>
+      <li><a href="index.html#schedule">Matches</a></li>
+      <li><a href="index.html#guidelines">Guidelines</a></li>
       <li><a href="booking.html" class="active">Book Now</a></li>
     </ul>
   </nav>
@@ -60,6 +66,8 @@
           <option value="mi-kkr">MI vs KKR - Mumbai (08 Apr)</option>
           <option value="dc-srh">DC vs SRH - Delhi (10 Apr)</option>
           <option value="gt-rr">GT vs RR - Ahmedabad (12 Apr)</option>
+          <option value="csk-mi">CSK vs MI - Chennai (15 Apr)</option>
+          <option value="kkr-rcb">KKR vs RCB - Kolkata (18 Apr)</option>
         </select>
 
         <label for="stand">Stand Category *</label>
@@ -124,7 +132,7 @@
   <!-- FOOTER -->
   <footer>
     <p>&copy; 2026 IPL Ticket Booking. All rights reserved.</p>
-    <p><a href="index.html">Home</a> | <a href="index.html#schedule">Schedule</a> | <a href="booking.html">Book</a></p>
+    <p><a href="index.html">Home</a> | <a href="index.html#schedule">Matches</a> | <a href="index.html#guidelines">Guidelines</a> | <a href="booking.html">Book</a></p>
   </footer>
 
   <script src="app.js"></script>
